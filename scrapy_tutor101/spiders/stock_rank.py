@@ -8,18 +8,6 @@ class StockRankSpider(scrapy.Spider):
     start_urls = ["http://histock.tw/stock/rank.aspx/"]
 
     def parse(self, response):
-        selectors = response.selector.xpath(
-            '//table[@class="gvTB"]/tr[position()>1]'
-        )  # get selector list
-        result = [
-            (
-                tr.xpath("td[1]/text()").get(),
-                tr.xpath("td[2]/a/text()").get(),
-                tr.xpath("td[3]/span/text()").get(),
-            )
-            for tr in selectors
-        ]
-
         css_selectors = response.css("table.gvTB>tr")[1:-1]
         css_result = [
             (
@@ -30,21 +18,13 @@ class StockRankSpider(scrapy.Spider):
             for tr in css_selectors
         ]
 
-        yield {
-            "meta": response.request.meta,
-            "result": result,
-            "css_result": css_result,
-        }
+        # export each stock
+        for stock in css_result:
+            yield {"id": stock[0], "name": stock[1], "price": stock[2]}
 
         next_page_link = response.selector.xpath(
             '//div[@class="pager"]/a[text()="下一頁 >"]/@href'
         ).get()
-        parse_result = urlparse(next_page_link)
-        dict_result = parse_qs(parse_result.query)
 
         if next_page_link:
-            yield response.follow(
-                url=next_page_link,
-                callback=self.parse,
-                meta={"page": dict_result["p"][0]},
-            )
+            yield response.follow(url=next_page_link, callback=self.parse)
