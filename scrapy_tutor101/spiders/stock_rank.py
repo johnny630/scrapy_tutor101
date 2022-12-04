@@ -1,4 +1,5 @@
 import scrapy
+from urllib.parse import urlparse, parse_qs
 
 
 class StockRankSpider(scrapy.Spider):
@@ -29,11 +30,21 @@ class StockRankSpider(scrapy.Spider):
             for tr in css_selectors
         ]
 
-        yield {"result": result, "css_result": css_result}
+        yield {
+            "meta": response.request.meta,
+            "result": result,
+            "css_result": css_result,
+        }
 
         next_page_link = response.selector.xpath(
             '//div[@class="pager"]/a[text()="下一頁 >"]/@href'
         ).get()
+        parse_result = urlparse(next_page_link)
+        dict_result = parse_qs(parse_result.query)
 
         if next_page_link:
-            yield response.follow(url=next_page_link, callback=self.parse)
+            yield response.follow(
+                url=next_page_link,
+                callback=self.parse,
+                meta={"page": dict_result["p"][0]},
+            )
