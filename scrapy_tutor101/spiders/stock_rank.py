@@ -3,7 +3,7 @@ import scrapy
 
 class StockRankSpider(scrapy.Spider):
     name = "stock_rank"
-    allowed_domains = ["histock.tw/stock/rank.aspx"]
+    allowed_domains = ["histock.tw"]
     start_urls = ["http://histock.tw/stock/rank.aspx/"]
 
     def parse(self, response):
@@ -30,3 +30,10 @@ class StockRankSpider(scrapy.Spider):
         ]
 
         yield {"result": result, "css_result": css_result}
+
+        next_page_link = response.selector.xpath(
+            '//div[@class="pager"]/a[text()="下一頁 >"]/@href'
+        ).get()
+
+        if next_page_link:
+            yield response.follow(url=next_page_link, callback=self.parse)
