@@ -31,3 +31,7 @@ then in terminal run `scrapy crawl stock_rank`
 ### 3. Open in browser
 
 `open_in_browser(response)`
+
+### 4. Logging
+
+`self.logger.warning()`

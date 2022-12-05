@@ -1,5 +1,4 @@
 import scrapy
-from scrapy.utils.response import open_in_browser
 from urllib.parse import urlparse, parse_qs
 
 
@@ -9,8 +8,6 @@ class StockRankSpider(scrapy.Spider):
     start_urls = ["https://histock.tw/stock/rank.aspx/"]
 
     def parse(self, response):
-        open_in_browser(response)
-        return
         css_selectors = response.css("table.gvTB>tr")[1:-1]
         css_result = [
             (
@@ -28,6 +25,8 @@ class StockRankSpider(scrapy.Spider):
         next_page_link = response.selector.xpath(
             '//div[@class="pager"]/a[text()="下一頁 >"]/@href'
         ).get()
+
+        self.logger.info(response.request.meta)
 
         if next_page_link:
             yield response.follow(url=next_page_link, callback=self.parse)
