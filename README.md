@@ -35,3 +35,10 @@ then in terminal run `scrapy crawl stock_rank`
 ### 4. Logging
 
 `self.logger.warning()`
+
+### 5. VSCode break point
+
+create runner.py
+
+1. VSCode terminal environment choose scrapy version.
+2. VSCode IDE / Run / Start Debugging
