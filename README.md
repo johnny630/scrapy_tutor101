@@ -17,3 +17,9 @@ e.g.: `scrapy parse --spider=stock_rank -c parse -d 3 https://histock.tw/stock/r
 `-c`: you want to test method  
 `-d`: depth level  
 `--meta`: e.g. `--meta='{\"key\":\"value\"}'`
+
+### 2. Scrapy Shell
+enter shell mode to debug
+`inspect_response(response, self)`
+
+then in terminal run `scrapy crawl stock_rank`

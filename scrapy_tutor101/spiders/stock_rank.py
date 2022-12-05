@@ -1,4 +1,5 @@
 import scrapy
+from scrapy.shell import inspect_response
 from urllib.parse import urlparse, parse_qs
 
 
@@ -8,6 +9,7 @@ class StockRankSpider(scrapy.Spider):
     start_urls = ["https://histock.tw/stock/rank.aspx/"]
 
     def parse(self, response):
+        inspect_response(response, self)
         css_selectors = response.css("table.gvTB>tr")[1:-1]
         css_result = [
             (
