@@ -14,6 +14,11 @@ class StockNewsSpider(CrawlSpider):
             callback='parse_news',
             follow=True
         ),
+        Rule(
+            LinkExtractor(restrict_xpaths='//div[@class="pager"]/a[text()="下一頁 >"]'),
+            callback='parse_news',
+            follow=True
+        )
     )
 
     def parse_news(self, response):
