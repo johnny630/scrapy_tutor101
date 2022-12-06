@@ -42,3 +42,15 @@ create runner.py
 
 1. VSCode terminal environment choose scrapy version.
 2. VSCode IDE / Run / Start Debugging
+
+## generate spider with crawl template
+
+e.g. `scrapy genspider -t crawl stock_news https://histock.tw/stock/rank.aspx`
+
+### Rule
+
+https://docs.scrapy.org/en/latest/topics/spiders.html?highlight=Rule#crawling-rules
+
+### linkExtractors
+
+https://docs.scrapy.org/en/latest/topics/link-extractors.html?highlight=linkextra#module-scrapy.linkextractors.lxmlhtml
