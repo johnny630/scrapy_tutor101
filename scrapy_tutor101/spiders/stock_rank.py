@@ -5,7 +5,7 @@ from urllib.parse import urlparse, parse_qs
 class StockRankSpider(scrapy.Spider):
     name = "stock_rank"
     allowed_domains = ["histock.tw"]
-    start_urls = ["https://histock.tw/stock/rank.aspx/"]
+    start_urls = ["https://histock.tw/stock/rank.aspx?m=11"]
 
     def parse(self, response):
         css_selectors = response.css("table.gvTB>tr")[1:-1]

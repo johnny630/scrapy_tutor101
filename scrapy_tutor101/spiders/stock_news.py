@@ -6,7 +6,7 @@ from scrapy.spiders import CrawlSpider, Rule
 class StockNewsSpider(CrawlSpider):
     name = 'stock_news'
     allowed_domains = ['histock.tw']
-    start_urls = ['https://histock.tw/stock/rank.aspx/']
+    start_urls = ['https://histock.tw/stock/rank.aspx?m=11']
 
     rules = (
         Rule(
