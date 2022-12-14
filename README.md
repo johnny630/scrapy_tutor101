@@ -54,3 +54,38 @@ https://docs.scrapy.org/en/latest/topics/spiders.html?highlight=Rule#crawling-ru
 ### linkExtractors
 
 https://docs.scrapy.org/en/latest/topics/link-extractors.html?highlight=linkextra#module-scrapy.linkextractors.lxmlhtml
+
+## Scrapy & Splash
+
+https://github.com/scrapy-plugins/scrapy-splash
+
+## install splash with Docker
+
+pull splash image
+`docker pull scrapinghub/splash`
+
+run splash
+`docker run -it -p 8050:8050 scrapinghub/splash`
+
+### settings.py config
+
+1. add `SPLASH_URL = 'http://127.0.0.1:8050'`
+2. add
+
+```
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy_splash.SplashCookiesMiddleware': 723,
+    'scrapy_splash.SplashMiddleware': 725,
+    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
+}
+```
+
+3. add
+
+```
+SPIDER_MIDDLEWARES = {
+    'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
+}
+```
+
+4. add `DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'`
