@@ -89,3 +89,19 @@ SPIDER_MIDDLEWARES = {
 ```
 
 4. add `DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'`
+
+##
+
+## Selenium
+
+[Official Website](https://www.selenium.dev/)  
+[Python Selenium](https://pypi.org/project/selenium/)
+
+[Selenium Cheat Sheet](http://allselenium.info/python-selenium-commands-cheat-sheet-frequently-used/)
+[Selenium with Python 中文翻译文档](https://selenium-python-zh.readthedocs.io/en/latest/)
+
+### Install
+
+1. `pip install selenium`
+2. download driver by different browser (要注意你的 broswer 版本號)
+3. upt the driver to your python path.
